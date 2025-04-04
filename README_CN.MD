@@ -121,6 +121,8 @@ If this call came from a _pb2.py file, your generated code is out of date and mu
 ## 更新说明
 **如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* 添加 [GeminiImageEdit](#GeminiImageEdit) 节点，支持使用gemini-2.0-flash-exp-image-generation API进行图像编辑。
+* 添加 [GeminiV2](#GeminiV2) 以及 [ObjectDetectorGeminiV2](#ObjectDetectorGeminiV2) 节点，使用了新的google-genai依赖包，支持最新的gemini-2.0-flash-exp以及gemini-2.5-pro-exp-03-25模型。
 * 增加模型下载夸克网盘链接。
 * 支持numpy 2.x 依赖包。
 * 添加 [DeepseekAPI_V2](#DeepseekAPI_V2) 节点，支持阿里云和火山引擎的deepseek api。
@@ -313,6 +315,34 @@ JoyCaption2的extra_options参数节点。
 * response_language: 回复的语言。
 * system_prompt: 系统提示词。
 * user_prompt: 用户提示词。
+
+### <a id="table1">GeminiV2</a>
+在Gemini节点基础上改为使用新的google-genai依赖包，支持最新的gemini-2.0-flash、gemini-2.0-flash-lite以及gemini-2.5-pro-exp-03-25模型。
+![image](image/gemini_v2_example.jpg)    
+
+
+在原节点上新增:    
+![image](image/gemini_v2_node.jpg)  
+
+* seed: 用于请求Google API时的种子值。
+
+### <a id="table1">GeminiImageEdit</a>
+使用gemini-2.0-flash-exp-image-generation 模型实现多模态图片编辑。
+请在[Google AI Studio](https://makersuite.google.com/app/apikey)申请你的API key, 并将其填到```api_key.ini```, 这个文件位于插件根目录下, 默认名字是```api_key.ini.example```, 初次使用这个文件需将文件后缀改为.ini。用文本编辑软件打开，在```google_api_key=```后面填入你的API key并保存。
+![image](image/gemini_image_edit_example.jpg)    
+
+节点选项说明:   
+![image](image/gemini_image_edit_node.jpg)    
+
+* image: 图片输入。
+* image_2: 可选第二张图片输入。
+* image_3: 可选第三张图片输入。
+* model: 选择Gemini模型。目前仅支持gemini-2.0-flash-exp-image-generation模型。
+* temperature: Gemini的temperature参数，默认为0.5。
+* seed: 用于请求Google API时的种子值。
+* control_after_generate: 是否每次更改种子。
+* user_prompt: 用户提示词。
+
 
 ### <a id="table1">DeepSeekAPI</a>
 使用DeepSeek API进行文本推理，支持多节点上下文串联。        
@@ -858,6 +888,15 @@ https://github.com/user-attachments/assets/b2a45c96-4be1-4470-8ceb-addaf301b0cb
 * model: Gemini模型。
 * prompt: 描述需要识别的对象。
 
+
+### <a id="table1">ObjectDetectorGeminiV2</a>
+在ObjectDetectorGemini节点基础上改为使用新的google-genai依赖包，支持最新的gemini-2.5-pro-exp-03-25模型。
+
+
+节点选项说明:  
+![image](image/object_detector_gemini_v2_node.jpg)    
+
+同ObjectDetectorGemini
 
 ### <a id="table1">ObjectDetectorFL2</a>
 使用Florence2模型识别图片中的对象，并输出识别框数据。    

@@ -22,6 +22,8 @@ typer_config
 fastapi
 rich
 google-generativeai
+google-genai>=1.5.0
+pillow>=10.1.0
 ultralytics>=8.2.0
 transparent-background
 accelerate>=0.26.0

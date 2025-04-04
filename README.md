@@ -145,6 +145,8 @@ Please try downgrading the ```protobuf``` dependency package to 3.20.3, or set e
 
 **If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages.    
 
+* Commit [GeminiImageEdit](#GeminiImageEdit) node, support using gemini-2.0-flash-exp-image-generation API for image editing.
+* Commit [GeminiV2](#GeminiV2) and [ObjectDetectorGeminiV2](#ObjectDetectorGeminiV2) nodes, used google-genai dependency package that supports the gemini-2.0-flash-exp and gemini-2.5-pro-exp-03-25 models.
 * Add QuarkNetdisk model download link.
 * Support numpy 2.x dependency package.
 * Commit [DeepseekAPI_V2](#DeepseekAPI_V2) noee, supporting AliYun and VolcEngine API.
@@ -337,6 +339,32 @@ Node options:
 * words_limit: The default word limit for replies is 200.
 * response_language: The language of the reply.
 * system_prompt: The system prompt.
+* user_prompt: The user prompt.
+
+### <a id="table1">GeminiV2</a>
+On the basis of Gemini nodes, switch to using the new google-genai dependency package, which supports the latest gemini-2.0-flash, gemini-2.0-flash-lite, and gemini-2.5-pro-exp-03-25 models.
+![image](image/gemini_v2_example.jpg)       
+
+Add on the original node:    
+![image](image/gemini_v2_node.jpg)     
+* seed: Seed value used when requesting Google API.    
+
+
+### <a id="table1">GeminiImageEdit</a>
+Implement multimodal image editing using the gemini-2.0-flash-exp-image-generation model.    
+Apply for your API key on [Google AI Studio](https://makersuite.google.com/app/apikey),  And fill it in ```api_key.ini```, this file is located in the root directory of the plug-in, and the default name is ```api_key.ini.example```. to use this file for the first time, you need to change the file suffix to ```.ini```. Open it using text editing software, fill in your API key after ```google_api_key=``` and save it.
+![image](image/gemini_image_edit_example.jpg)    
+
+Node Options:   
+![image](image/gemini_image_edit_node.jpg)    
+
+* image: The input image.
+* image_2: Optional second image input.
+* image_3: Optional third image input.
+* model: Choose the Gemini model. Currently, only the gemini-2.0-flash-exp-image-generation model is supported.
+* temperature: The temperature parameter of Gemini defaults to 0.5.
+* seed: Seed value used when requesting Google API.
+* control_after_generate: Set whether to change the seed every time.
 * user_prompt: The user prompt.
 
 ### <a id="table1">DeepSeekAPI</a>
@@ -928,6 +956,14 @@ Node Options:
 * image: The input image.
 * model: Selete Gemini model.
 * prompt: Describe the object that needs to be identified.
+
+### <a id="table1">ObjectDetectorGeminiV2</a>
+On the basis of the ObjectDetectorGemini node, change to using a new google-genai dependency package that supports the latest gemini-2.5-pro-exp-03-25 model.
+
+Node Options:  
+![image](image/object_detector_gemini_v2_node.jpg)    
+
+Same as ObjectDetectorGemini
 
 ### <a id="table1">ObjectDetectorFL2</a>
 
