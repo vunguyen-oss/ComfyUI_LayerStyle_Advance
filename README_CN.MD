@@ -121,6 +121,7 @@ If this call came from a _pb2.py file, your generated code is out of date and mu
 ## 更新说明
 **如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* 添加多语言，除英语外，增加支持5种语言：中文、法语、日语、韩语和俄语。该功能使用[ComfyUI-Globalization-Node-Translation](https://github.com/yamanacn/ComfyUI-Globalization-Node-Translation)制作，感谢原作者。
 * 添加 [GeminiImageEdit](#GeminiImageEdit) 节点，支持使用gemini-2.0-flash-exp-image-generation API进行图像编辑。
 * 添加 [GeminiV2](#GeminiV2) 以及 [ObjectDetectorGeminiV2](#ObjectDetectorGeminiV2) 节点，使用了新的google-genai依赖包，支持最新的gemini-2.0-flash-exp以及gemini-2.5-pro-exp-03-25模型。
 * 增加模型下载夸克网盘链接。

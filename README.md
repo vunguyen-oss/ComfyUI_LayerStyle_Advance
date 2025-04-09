@@ -176,6 +176,7 @@ Randomly collage the input images into one large image.
 Node Options:   
 ![image](image/collage_node.jpg)    
 
+* Add multiple languages and increase support for 5 languages: Chinese, French, Japanese, Korean and Russian. This feature producted by [ComfyUI-Globalization-Node-Translation](https://github.com/yamanacn/ComfyUI-Globalization-Node-Translation), thank you to the original author.
 * images: The input images.
 * florence2_model: Optional input for object recognition and cropping.
 * canvas_width: Output the width of the image.
