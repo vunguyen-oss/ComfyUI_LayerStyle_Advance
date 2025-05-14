@@ -145,6 +145,7 @@ Please try downgrading the ```protobuf``` dependency package to 3.20.3, or set e
 
 **If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages.    
 
+* Commit [SaveImagePLusV2](SaveImagePlusV2) node, add custom file names and setting up the dpi of image.
 * Commit [GeminiImageEdit](#GeminiImageEdit) node, support using gemini-2.0-flash-exp-image-generation API for image editing.
 * Commit [GeminiV2](#GeminiV2) and [ObjectDetectorGeminiV2](#ObjectDetectorGeminiV2) nodes, used google-genai dependency package that supports the gemini-2.0-flash-exp and gemini-2.5-pro-exp-03-25 models.
 * Add QuarkNetdisk model download link.
@@ -716,7 +717,7 @@ Enhanced save image node. You can customize the directory where the picture is s
 Node Options:
 ![image](image/saveimage_plus_node.jpg)    
 
-* iamge: The input image.
+* image: The input image.
 * custom_path<sup>*</sup>: User-defined directory, enter the directory name in the correct format. If empty, it is saved in the default output directory of ComfyUI.
 * filename_prefix<sup>*</sup>: The prefix of file name.
 * timestamp: Timestamp the file name, opting for date, time to seconds, and time to milliseconds.
@@ -726,6 +727,17 @@ Node Options:
 * blind_watermark: The text entered here (does not support multilingualism) will be converted into a QR code and saved as an invisible watermark. Use ```ShowBlindWaterMark``` node can decode watermarks. Note that pictures with watermarks are recommended to be saved in png format, and lower-quality jpg format will cause watermark information to be lost.
 * save_workflow_as_json: Whether the output workflow is a json file at the same time (the output json is in the same directory as the picture).
 * preview: Preview switch.
+
+<sup>*</sup> Enter```%date``` for the current date (YY-mm-dd) and ```%time``` for the current time (HH-MM-SS). You can enter ```/``` for subdirectories. For example, ```%date/name_%tiem``` will output the image to the ```YY-mm-dd``` folder, with ```name_HH-MM-SS``` as the file name prefix.
+
+### <a id="table1">SaveImagePlusV2</a> 
+Added custom file name and dpi options on the SaveImagePlus node.
+
+NodeOptions:
+![image](image/saveimage_plus_v2_node.jpg)    
+
+* custom_filename<sup>*</sup>: User defined file name, if entered here, will be used as the file name. Please note that duplicate files will be overwritten. If this is empty, use the file name prefix and timestamp as the file name.
+* dpi: Set the DPI value of the image file.
 
 <sup>*</sup> Enter```%date``` for the current date (YY-mm-dd) and ```%time``` for the current time (HH-MM-SS). You can enter ```/``` for subdirectories. For example, ```%date/name_%tiem``` will output the image to the ```YY-mm-dd``` folder, with ```name_HH-MM-SS``` as the file name prefix.
 

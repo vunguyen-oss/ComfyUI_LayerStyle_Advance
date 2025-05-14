@@ -121,6 +121,7 @@ If this call came from a _pb2.py file, your generated code is out of date and mu
 ## 更新说明
 **如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* 添加 [SaveImagePLusV2](SaveImagePlusV2) 节点，增加自定义文件名和设置dpi。
 * 添加多语言，除英语外，增加支持5种语言：中文、法语、日语、韩语和俄语。该功能使用[ComfyUI-Globalization-Node-Translation](https://github.com/yamanacn/ComfyUI-Globalization-Node-Translation)制作，感谢原作者。
 * 添加 [GeminiImageEdit](#GeminiImageEdit) 节点，支持使用gemini-2.0-flash-exp-image-generation API进行图像编辑。
 * 添加 [GeminiV2](#GeminiV2) 以及 [ObjectDetectorGeminiV2](#ObjectDetectorGeminiV2) 节点，使用了新的google-genai依赖包，支持最新的gemini-2.0-flash-exp以及gemini-2.5-pro-exp-03-25模型。
@@ -667,7 +668,7 @@ box_preview: 裁切位置预览。
 
 节点选项说明:
 ![image](image/saveimage_plus_node.jpg)    
-* iamge: 输入的图片。
+* image: 输入的图片。
 * custom_path<sup>*</sup>: 用户自定义目录，请按正确的格式输入目录名。如果为空则保存在ComfyUI默认的output目录。
 * filename_prefix<sup>*</sup>:文件名前缀。。
 * timestamp: 为文件名加上时间戳，可选择日期、时间到秒和时间到毫秒。
@@ -679,6 +680,18 @@ box_preview: 裁切位置预览。
 * preview: 预览开关。
 
 <sup>*</sup>输入```%date```表示当前日期(YY-mm-dd)，```%time```表示当前时间(HH-MM-SS)。可以输入```/```表示子目录。例如```%date/name_%time``` 将输出图片到```YY-mm-dd```文件夹下，以```name_HH-MM-SS```为文件名前缀。
+
+### <a id="table1">SaveImagePlusV2</a> 
+在SaveImagePlus节点上增加了自定义文件名和dpi选项。
+
+节点选项说明:
+![image](image/saveimage_plus_v2_node.jpg)    
+
+* custom_filename<sup>*</sup>: 用户自定义文件名，如果此处有输入，将以此为文件名，注意重名文件将被覆盖。此处为空则按照文件名前缀+时间戳作为文件名。
+* dpi: 设置图片文件的dpi值。
+
+<sup>*</sup>输入```%date```表示当前日期(YY-mm-dd)，```%time```表示当前时间(HH-MM-SS)。可以输入```/```表示子目录。例如```%date/name_%time``` 将输出图片到```YY-mm-dd```文件夹下，以```name_HH-MM-SS```为文件名前缀。
+
 
 
 ### <a id="table1">AddBlindWaterMark</a>
