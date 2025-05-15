@@ -121,6 +121,7 @@ If this call came from a _pb2.py file, your generated code is out of date and mu
 ## 更新说明
 **如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
+* 添加 [JoyCaption2Split](JoyCaption2Split), [LoadJoyCaption2Model](LoadJoyCaption2Model), [JoyCaption2ExtraOptions](JoyCaption2ExtraOptions) 节点，使用JoyCaption-Beta-One模型生成提示词。
 * 添加 [SaveImagePLusV2](SaveImagePlusV2) 节点，增加自定义文件名和设置dpi。
 * 添加多语言，除英语外，增加支持5种语言：中文、法语、日语、韩语和俄语。该功能使用[ComfyUI-Globalization-Node-Translation](https://github.com/yamanacn/ComfyUI-Globalization-Node-Translation)制作，感谢原作者。
 * 添加 [GeminiImageEdit](#GeminiImageEdit) 节点，支持使用gemini-2.0-flash-exp-image-generation API进行图像编辑。
@@ -227,6 +228,7 @@ If this call came from a _pb2.py file, your generated code is out of date and mu
 * temperature: LLM的temperature参数。
 * cache_model: 是否缓存模型。
 
+
 ### <a id="table1">JoyCaption2Split</a>
 JoyCaption2 的分离式节点，将模型加载与推理分离，使用多个JoyCaption2节点时可共用模型提高效率。
 
@@ -238,11 +240,11 @@ JoyCaption2 的分离式节点，将模型加载与推理分离，使用多个Jo
 * extra_options: extra_options参数输入。
 * caption_type: caption类型选项, 包括"Descriptive"(正式语气描述), "Descriptive (Informal)"(非正式语气描述), "Training Prompt"(SD训练描述), "MidJourney"(MJ风格描述), "Booru tag list"(标签列表), "Booru-like tag list"(类标签列表), "Art Critic"(艺术评论), "Product Listing"(产品列表), "Social Media Post"(社交媒体风格)。
 * caption_length: 描述长度。
-* user_prompt: LLM模型的用户提示词。如果这里有内容将覆盖caption_type和extra_options的所有设置。
-* max_new_tokens: LLM的max_new_tokens参数。
-* do_sample: LLM的do_sample参数。
-* top-p: LLM的top_p参数。
-* temperature: LLM的temperature参数。
+* user_prompt: 用户提示词。如果这里有内容将覆盖caption_type和extra_options的所有设置。
+* max_new_tokens: 模型的max_new_tokens参数。
+* do_sample: 模型的do_sample参数。
+* top-p: 模型的top_p参数。
+* temperature: 模型的temperature参数。
 
 ### <a id="table1">LoadJoyCaption2Model</a>
 JoyCaption2 的模型加载节点，与JoyCaption2Split配合使用。
@@ -280,6 +282,75 @@ JoyCaption2的extra_options参数节点。
 * include_nsfw: 包含NSFW或性暗示信息。
 * only_describe_most_important_elements: 只描述最重要的元素。
 * character_name: 如果选择了```refer_character_name```，则使用此处的名字。
+
+### <a id="table1">JoyCaptionBetaOne</a>
+使用JoyCaption-Beta-One模型生成提示词。本节点是 https://huggingface.co/fancyfeast/llama-joycaption-beta-one-hf-llava 在ComfyUI中的实现。
+
+首次使用节点将自动下载模型到ComfyUI/models/LLavacheckpoints/llama-joycaption-beta-one-hf-llava 文件夹。
+
+也可从 [百度网盘](https://pan.baidu.com/s/1AAh8KXtBK6hIeSLgP-hjuA?pwd=avcc) 或者 [夸克网盘](https://pan.quark.cn/s/a69a5d6c9b99)或者 [huggingface/fancyfeast/llama-joycaption-beta-one-hf-llava](https://huggingface.co/fancyfeast/llama-joycaption-beta-one-hf-llava/tree/main) 下载llama-joycaption-beta-one-hf-llava文件夹，并复制到ComfyUI/models/LLavacheckpoints
+
+![image](image/joycaption_beta1_example.jpg)    
+
+节点选项说明:   
+![image](image/joycaption_beta_1_node.jpg)    
+
+* image: 图片输入。
+* joycaption_beta1_model: JoyCaption Beta One模型输入。模型从```Load JoyCaption Beta One Model``` 节点加载。
+* extra_options: extra_options参数输入。
+* caption_type: caption类型选项, 包括"Descriptive"(正式语气描述), "Descriptive (Casual)"(非正式语气描述), "Straightforward"(简单描述), "Stable Diffusion Prompt"(StableDiffusion提示词), "MidJourney"(MJ风格描述), "Danbooru tag list"(Danbooru标签), "e621 tag list"(e621标签), "Rule34 tag list"(Rule34标签), "Booru-like tag list"(类Booru标签), "Art Critic"(艺术评论), "Product Listing"(产品列表), "Social Media Post"(社交媒体风格)。
+* caption_length: 描述长度。
+* max_new_tokens: 模型的max_new_tokens参数。
+* top-p: 模型的top_p参数。
+* top-k: 模型的top_k参数。
+* temperature: 模型的temperature参数。
+* user_prompt: 用户提示词。如果这里有内容将覆盖caption_type和extra_options的所有设置。
+
+### <a id="table1">LoadJoyCaptionBeta1Model</a>
+JoyCaption Beta One的模型加载节点，与JoyCaptionBetaOne配合使用。
+
+节点选项说明:   
+![image](image/load_joycaption_beta1_model_node.jpg)    
+
+* model: 目前只有fancyfeast/llama-joycaption-beta-one-hf-llava模型可选择。
+* quantization_mode: 模型量化模式，有nf4、int8 和 bf16 三个选项。
+* device: 模型加载设备。
+
+### <a id="table1">JoyCaptionBeta1ExtraOptions</a>
+JoyCaption Beta One的extra_options参数节点。 
+
+节点选项说明:   
+![image](image/joycaption_beta1_extra_options_node.jpg)    
+
+* refer_character_name: 如果图像中有人物/角色，必须将其称为{name}
+* exclude_people_info: 不要包含有关无法更改的人物/角色的信息（例如种族、性别等），但仍包含可更改的属性（例如发型）。
+* include_lighting: 包括照明信息。
+* include_camera_angle: 包括摄影机角度信息。
+* include_watermark: 包括是否有水印信息。
+* include_JPEG_artifacts: 包括是否存在 JPEG 伪影信息。
+* include_exif: 如果是照片，包含相机的信息以及光圈、快门速度、ISO等信息。
+* exclude_sexual: 不要包含任何与性有关的内容，保持PG。
+* exclude_image_resolution: 不要包含图像分辨率信息。
+* include_aesthetic_quality: 包含图像美学（从低到非常高）信息。
+* include_composition_style: 包括有关图像构图风格的信息，例如引导线、三分法或对称性。
+* exclude_text: 不要包含任何文字信息。
+* specify_depth_field: 包含景深以及背景模糊信息。
+* specify_lighting_sources: 如果可以判别人造或自然光源，则包含在内。
+* do_not_use_ambiguous_language: 不要使用任何含糊不清的言辞。
+* include_nsfw: 包含NSFW或性暗示信息。
+* only_describe_most_important_elements: 只描述最重要的元素。
+* do_not_include_artist_name_or_title: 如果是艺术品，不要包括艺术家的姓名或作品的标题。
+* identify_image_orientation: 识别图像方向（纵向、横向或方形）和纵横比（如果明显）。
+* use_vulgar_slang_and_profanity: 使用粗俗俚语和亵渎语言。
+* do_not_use_polite_euphemisms: 不要使用礼貌的委婉语——倾向于直截了当、随意的措辞。
+* include_character_age: 在适用的情况下，包括任何人/角色的年龄信息。
+* include_camera_shot_type: 注明摄影镜头类型，例如极特写、特写、中特写、中镜头、牛仔镜头、中广角、广角还是极广角。
+* exclude_mood_feeling: 不要提及图像的情绪/感觉等。
+* include_camera_vantage_height: 明确指定有利高度（视线高度、低角度虫眼、鸟瞰、无人机、屋顶等）。
+* mention_watermark: 如果有水印，你必须提到它。
+* avoid_meta_descriptive_phrases": 避免使用无用的元短语，如“此图像显示…”、“您正在查看…”等。
+* character_name: 如果选择了```refer_character_name```，则使用此处的名字。
+
 
 ### <a id="table1">PhiPrompt</a>
 使用Micrisoft Phi 3.5文字及视觉模型进行本地推理。可以用于生成提示词，加工提示词或者反推图片的提示词。运行这个模型需要至少16GB的显存。

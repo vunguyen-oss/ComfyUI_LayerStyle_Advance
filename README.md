@@ -140,11 +140,11 @@ If this call came from a _pb2.py file, your generated code is out of date and mu
 Please try downgrading the ```protobuf``` dependency package to 3.20.3, or set environment variables: ```PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python```.
 
 
-
 ## Update
 
 **If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages.    
 
+* Commit [JoyCaption2Split](JoyCaption2Split), [LoadJoyCaption2Model](LoadJoyCaption2Model), [JoyCaption2ExtraOptions](JoyCaption2ExtraOptions) nodes, Generate prompt words using the JoyCaption Beta One model.    
 * Commit [SaveImagePLusV2](SaveImagePlusV2) node, add custom file names and setting up the dpi of image.
 * Commit [GeminiImageEdit](#GeminiImageEdit) node, support using gemini-2.0-flash-exp-image-generation API for image editing.
 * Commit [GeminiV2](#GeminiV2) and [ObjectDetectorGeminiV2](#ObjectDetectorGeminiV2) nodes, used google-genai dependency package that supports the gemini-2.0-flash-exp and gemini-2.5-pro-exp-03-25 models.
@@ -258,16 +258,16 @@ The node of JoyCaption2 separate model loading and inference, and when multiple 
 Node Options:   
 ![image](image/joycaption2_split_node.jpg)    
 
-* image: Image input.。
+* image: Image input.
 * joy2_model: The JoyCaption model input.
 * extra_options: Input the extra_options.
 * caption_type: Caption type options, including: "Descriptive", "Descriptive (Informal)", "Training Prompt", "MidJourney", "Booru tag list", "Booru-like tag list", "Art Critic", "Product Listing", "Social Media Post".
 * caption_length: The length of caption.
-* user_prompt: User prompt words for LLM model. If there is content here, it will overwrite all the settings for caption_type and extra_options.
-* max_new_tokens: The max_new_token parameter of LLM.
-* do_sample: The do_sample parameter of LLM.
-* top-p: The top_p parameter of LLM.
-* temperature: The temperature parameter of LLM.
+* user_prompt: User prompt words for model. If there is content here, it will overwrite all the settings for caption_type and extra_options.
+* max_new_tokens: The max_new_token parameter of model.
+* do_sample: The do_sample parameter of model.
+* top-p: The top_p parameter of model.
+* temperature: The temperature parameter of model.
 
 ### <a id="table1">LoadJoyCaption2Model</a>
 JoyCaption2's model loading node, used in conjunction with JoyCaption2Split.
@@ -304,6 +304,75 @@ Node Options:
 * include_nsfw: Include whether the image is sfw, suggestive, or nsfw.
 * only_describe_most_important_elements: ONLY describe the most important elements of the image.
 * character_name: Person/Character Name, if choice ```refer_character_name```.
+
+### <a id="table1">JoyCaptionBetaOne</a>   
+Generate prompt words using the JoyCaption Beta One model. This node is https://huggingface.co/fancyfeast/llama-joycaption-beta-one-hf-llava Implementation in ComfyUI.    
+
+The first time using the node, the model will be automatically downloaded to the ComfyUI/models/LLavacheckpoints/llama-joycaption-beta-one-hf-llava folder.    
+
+You can also download ```llama-joycaption-beta-one-hf-llava``` folder from [BaiduNetdisk](https://pan.baidu.com/s/1AAh8KXtBK6hIeSLgP-hjuA?pwd=avcc) or [Quark](https://pan.quark.cn/s/a69a5d6c9b99) or [huggingface/fancyfeast/llama-joycaption-beta-one-hf-llava](https://huggingface.co/fancyfeast/llama-joycaption-beta-one-hf-llava/tree/main) and copy to ```ComfyUI/models/LLavacheckpoints```
+
+![image](image/joycaption_beta1_example.jpg)    
+
+Node Options:   
+![image](image/joycaption_beta_1_node.jpg)    
+
+* image: Image input.
+* joycaption_beta1_model: JoyCaption Beta One model input. The model is loaded from the ```Load JoyCaption Beta One Model``` node.
+* extra_options: Input the extra_options.
+* caption_type: Caption type options, including: "Descriptive", "Descriptive (Casual)", "Straightforward", "Stable Diffusion Prompt", "MidJourney", "Danbooru tag list", "e621 tag list", "Rule34 tag list", "Booru-like tag list", "Art Critic", "Product Listing" and "Social Media Post".
+* caption_length: The length of caption.
+* max_new_tokens: The max_new_token parameter of model.
+* top-p: The top-p parameter of model.
+* top-k: The top-k parameter of model.
+* temperature: The temperature parameter of model.
+* user_prompt: User prompt words for model. If there is content here, it will overwrite all the settings for caption_type and extra_options.
+
+### <a id="table1">LoadJoyCaptionBeta1Model</a>
+The model loading node of JoyCaption Beta One, used in conjunction with JoyCaption Beta One.
+
+Node Options:   
+![image](image/load_joycaption_beta1_model_node.jpg)    
+
+* model: Only the ```fancyfeast/llama-joycaption-beta-one-hf-llava``` model is available for selection currently.
+* quantization_mode: The model quantization mode has three options: nf4, int8, and bf16.
+* device: The model loading device.
+
+### <a id="table1">JoyCaptionBeta1ExtraOptions</a>
+The extra_options parameter node of JoyCaption Beta One. 
+
+Node Options:   
+![image](image/joycaption_beta1_extra_options_node.jpg)   
+
+* refer_character_name: If there is a person/character in the image you must refer to them as {name}.
+* exclude_people_info: Do NOT include information about people/characters that cannot be changed (like ethnicity, gender, etc), but do still include changeable attributes (like hair style).
+* include_lighting: Include information about lighting.
+* include_camera_angle: Include information about camera angle.
+* include_watermark: Include information about whether there is a watermark or not.
+* include_JPEG_artifacts: Include information about whether there are JPEG artifacts or not.
+* include_exif: If it is a photo you MUST include information about what camera was likely used and details such as aperture, shutter speed, ISO, etc.
+* exclude_sexual: Do NOT include anything sexual; keep it PG.
+* exclude_image_resolution: Do NOT mention the image's resolution.
+* include_aesthetic_quality: You MUST include information about the subjective aesthetic quality of the image from low to very high.
+* include_composition_style: Include information on the image's composition style, such as leading lines, rule of thirds, or symmetry.
+* exclude_text: Do NOT mention any text that is in the image.
+* specify_depth_field: Specify the depth of field and whether the background is in focus or blurred.
+* specify_lighting_sources: If applicable, mention the likely use of artificial or natural lighting sources.
+* do_not_use_ambiguous_language: Do NOT use any ambiguous language.
+* include_nsfw: Include whether the image is sfw, suggestive, or nsfw.
+* only_describe_most_important_elements: ONLY describe the most important elements of the image.
+* do_not_include_artist_name_or_title: If it is a work of art, do not include the artist's name or the title of the work.
+* identify_image_orientation: Identify the image orientation (portrait, landscape, or square) and aspect ratio if obvious.
+* use_vulgar_slang_and_profanity: Use vulgar slang and profanity.
+* do_not_use_polite_euphemisms: Do NOT use polite euphemisms—lean into blunt, casual phrasing.
+* include_character_age: Include information about the ages of any people/characters when applicable.
+* include_camera_shot_type: Mention whether the image depicts an extreme close-up, close-up, medium close-up, medium shot, cowboy shot, medium wide shot, wide shot, or extreme wide shot.
+* exclude_mood_feeling: Do not mention the mood/feeling/etc of the image.
+* include_camera_vantage_height: Explicitly specify the vantage height (eye-level, low-angle worm’s-eye, bird’s-eye, drone, rooftop, etc.).
+* mention_watermark: If there is a watermark, you must mention it.
+* avoid_meta_descriptive_phrases: Your response will be used by a text-to-image model, so avoid useless meta phrases like “This image shows…”, "You are looking at...", etc.
+* character_name: Person/Character Name, if choice ```refer_character_name```.
+
 
 ### <a id="table1">PhiPrompt</a>
 
