@@ -144,7 +144,7 @@ Please try downgrading the ```protobuf``` dependency package to 3.20.3, or set e
 
 **If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages.    
 
-* Commit [JoyCaption2Split](JoyCaption2Split), [LoadJoyCaption2Model](LoadJoyCaption2Model), [JoyCaption2ExtraOptions](JoyCaption2ExtraOptions) nodes, Generate prompt words using the JoyCaption Beta One model.    
+* Commit [JoyCaptionBeta1](JoyCaptionBeta1), [LoadJoyCaptionBeta1Model](LoadJoyCaptionBeta1Model), [JoyCaptionBeta1ExtraOptions](JoyCaptionBeta1ExtraOptions) nodes, Generate prompt words using the JoyCaption Beta One model.    
 * Commit [SaveImagePLusV2](SaveImagePlusV2) node, add custom file names and setting up the dpi of image.
 * Commit [GeminiImageEdit](#GeminiImageEdit) node, support using gemini-2.0-flash-exp-image-generation API for image editing.
 * Commit [GeminiV2](#GeminiV2) and [ObjectDetectorGeminiV2](#ObjectDetectorGeminiV2) nodes, used google-genai dependency package that supports the gemini-2.0-flash-exp and gemini-2.5-pro-exp-03-25 models.

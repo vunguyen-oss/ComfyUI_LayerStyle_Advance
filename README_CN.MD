@@ -121,7 +121,7 @@ If this call came from a _pb2.py file, your generated code is out of date and mu
 ## 更新说明
 **如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
-* 添加 [JoyCaption2Split](JoyCaption2Split), [LoadJoyCaption2Model](LoadJoyCaption2Model), [JoyCaption2ExtraOptions](JoyCaption2ExtraOptions) 节点，使用JoyCaption-Beta-One模型生成提示词。
+* 添加 [JoyCaptionBeta1](JoyCaptionBeta1), [LoadJoyCaptionBeta1Model](LoadJoyCaptionBeta1Model), [JoyCaptionBeta1ExtraOptions](JoyCaptionBeta1ExtraOptions) 节点，使用JoyCaption-Beta-One模型生成提示词。
 * 添加 [SaveImagePLusV2](SaveImagePlusV2) 节点，增加自定义文件名和设置dpi。
 * 添加多语言，除英语外，增加支持5种语言：中文、法语、日语、韩语和俄语。该功能使用[ComfyUI-Globalization-Node-Translation](https://github.com/yamanacn/ComfyUI-Globalization-Node-Translation)制作，感谢原作者。
 * 添加 [GeminiImageEdit](#GeminiImageEdit) 节点，支持使用gemini-2.0-flash-exp-image-generation API进行图像编辑。
