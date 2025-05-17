@@ -144,7 +144,8 @@ Please try downgrading the ```protobuf``` dependency package to 3.20.3, or set e
 
 **If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages.    
 
-* Commit [JoyCaptionBeta1](JoyCaptionBeta1), [LoadJoyCaptionBeta1Model](LoadJoyCaptionBeta1Model), [JoyCaptionBeta1ExtraOptions](JoyCaptionBeta1ExtraOptions) nodes, Generate prompt words using the JoyCaption Beta One model.    
+* Commit [SAM2UltraV2](SAM2UltraV2) and [LoadSAM2Model](LoadSAM2Model) nodes, Change the SAM model to an external input to save resources when using multiple nodes.
+* Commit [JoyCaptionBetaOne](JoyCaptionBetaOne), [LoadJoyCaptionBeta1Model](LoadJoyCaptionBeta1Model), [JoyCaptionBeta1ExtraOptions](JoyCaptionBeta1ExtraOptions) nodes, Generate prompt words using the JoyCaption Beta One model.    
 * Commit [SaveImagePLusV2](SaveImagePlusV2) node, add custom file names and setting up the dpi of image.
 * Commit [GeminiImageEdit](#GeminiImageEdit) node, support using gemini-2.0-flash-exp-image-generation API for image editing.
 * Commit [GeminiV2](#GeminiV2) and [ObjectDetectorGeminiV2](#ObjectDetectorGeminiV2) nodes, used google-genai dependency package that supports the gemini-2.0-flash-exp and gemini-2.5-pro-exp-03-25 models.
@@ -997,6 +998,24 @@ Node Options:
 * process_detail: Set to false here will skip edge processing to save runtime.
 * device: Set whether the VitMatte to use cuda.
 * max_megapixels: Set the maximum size for VitMate operations.
+
+### <a id="table1">SAM2UltraV2</a>
+On the basis of ```SAM2 Ultra``` nodes, changing the SAM2 model to an external input saves resources when using multiple nodes.
+
+Modified node options:  
+![image](image/sam2_ultra_v2_node.jpg)    
+
+* sam2_model: SAM2 model input, the model is loaded by the ```Load SAM2 Model``` node.
+
+### <a id="table1">LoadSAM2Model</a>
+Load SAM2 model.
+
+Node Options:  
+![image](image/load_sam2_model_node.jpg)    
+
+* sam2_model: Select the SAM2 model.
+* presicion: Model's persicion. can be selected from fp16, bf16, and fp32.
+* device: Set whether to use cuda.
 
 ### <a id="table1">SAM2VideoUltra</a>
 

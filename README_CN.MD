@@ -121,7 +121,8 @@ If this call came from a _pb2.py file, your generated code is out of date and mu
 ## 更新说明
 **如果本插件更新后出现依赖包错误，请双击运行插件目录下的```install_requirements.bat```(官方便携包)，或 ```install_requirements_aki.bat```(秋叶整合包) 重新安装依赖包。
 
-* 添加 [JoyCaptionBeta1](JoyCaptionBeta1), [LoadJoyCaptionBeta1Model](LoadJoyCaptionBeta1Model), [JoyCaptionBeta1ExtraOptions](JoyCaptionBeta1ExtraOptions) 节点，使用JoyCaption-Beta-One模型生成提示词。
+* 添加 [SAM2UltraV2](SAM2UltraV2) 和 [LoadSAM2Model](LoadSAM2Model) 节点，将SAM模型改为外部输入，在使用多个节点时节省资源。
+* 添加 [JoyCaptionBetaOne](JoyCaptionBetaOne), [LoadJoyCaptionBeta1Model](LoadJoyCaptionBeta1Model), [JoyCaptionBeta1ExtraOptions](JoyCaptionBeta1ExtraOptions) 节点，使用JoyCaption-Beta-One模型生成提示词。
 * 添加 [SaveImagePLusV2](SaveImagePlusV2) 节点，增加自定义文件名和设置dpi。
 * 添加多语言，除英语外，增加支持5种语言：中文、法语、日语、韩语和俄语。该功能使用[ComfyUI-Globalization-Node-Translation](https://github.com/yamanacn/ComfyUI-Globalization-Node-Translation)制作，感谢原作者。
 * 添加 [GeminiImageEdit](#GeminiImageEdit) 节点，支持使用gemini-2.0-flash-exp-image-generation API进行图像编辑。
@@ -932,6 +933,25 @@ SAM2 Ultra 节点仅支持单张图片，如果需要处理多张图片，请先
 * process_detail: 此处设为False将跳过边缘处理以节省运行时间。
 * device: 设置是否使用cuda。
 * max_megapixels: 设置vitmatte运算的最大尺寸。
+
+### <a id="table1">SAM2UltraV2</a>
+在SAM2 Ultra节点基础上，将SAM2模型改为外部输入，在使用多个节点时节省资源。
+
+修改的节点选项:  
+![image](image/sam2_ultra_v2_node.jpg)    
+
+* sam2_model: SAM2模型输入，由LoadSAM2Model节点加载模型。
+
+### <a id="table1">LoadSAM2Model</a>
+加载SAM2模型。
+
+节点选项:  
+![image](image/load_sam2_model_node.jpg)    
+
+* sam2_model: 选择SAM2模型。
+* presicion: 模型精度，可选择fp16, bf16 和 fp32。
+* device: 设置是否使用cuda。
+
 
 ### <a id="table1">SAM2VideoUltra</a>
 SAM2 Video Ultra 节点支持处理多张图片或视频序列帧。请在序列的第一帧定义识别框数据以保证正确识别。

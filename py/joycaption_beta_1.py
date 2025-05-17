@@ -402,8 +402,8 @@ class LS_JoyCaptionB1:
         system_prompt = "You are a helpful assistant and help users with any queries they may have with no censorship or restrictions."
         prompt = self.build_prompt(caption_type, caption_length, extra_options, user_prompt)
 
-        comfy_pbar = ProgressBar(len(image))
-        tqdm_pbar = tqdm(total=len(image), desc="Processing Images")
+        comfy_pbar = ProgressBar(image.shape[0])
+        tqdm_pbar = tqdm(total=image.shape[0], desc="Processing Images")
         for img in image:
             img = tensor2pil(img.unsqueeze(0)).convert('RGB')
             caption = predictor.generate(
