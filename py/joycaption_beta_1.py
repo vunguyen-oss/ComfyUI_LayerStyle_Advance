@@ -98,11 +98,13 @@ class JoyCaptionPredictor:
             self.model = LlavaForConditionalGeneration.from_pretrained(
                 checkpoint_path,
                 torch_dtype="bfloat16",
-                device_map="auto")
+                device_map="auto"
+            )
         else:
             from transformers import BitsAndBytesConfig
             qnt_config = BitsAndBytesConfig(
                 **QUANTIZATION_CONFIGS[quantization_mode],
+                llm_int8_enable_fp32_cpu_offload=True,
                 llm_int8_skip_modules=["vision_tower", "multi_modal_projector"],
                 # Transformer's Siglip implementation has bugs when quantized, so skip those.
             )
@@ -110,7 +112,8 @@ class JoyCaptionPredictor:
                 checkpoint_path,
                 torch_dtype="auto",
                 device_map="auto",
-                quantization_config=qnt_config)
+                quantization_config=qnt_config
+            )
 
         self.model.eval()
 
