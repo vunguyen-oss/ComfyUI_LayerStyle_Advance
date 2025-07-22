@@ -2,7 +2,7 @@ numpy
 matplotlib
 scikit_image
 scikit_learn
-opencv-contrib-python
+opencv-contrib-python>=4.9.0.80
 pymatting
 timm
 blend_modes
@@ -38,3 +38,5 @@ pyzbar
 psd-tools
 zhipuai
 openai
+image-reward
+torchscale
