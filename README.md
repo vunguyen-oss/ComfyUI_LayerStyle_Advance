@@ -13,8 +13,6 @@ Some JSON workflow files in the    ```workflow``` directory, That's examples of 
 
 ## How to install
 
-(Taking ComfyUI official portable package and Aki ComfyUI package as examples, please modify the dependency environment directory for other ComfyUI environments)
-
 ### Install plugin
 
 * Recommended use ComfyUI Manager for installation.
@@ -29,28 +27,48 @@ Some JSON workflow files in the    ```workflow``` directory, That's examples of 
 
 ### Install dependency packages
 
-* for ComfyUI official portable package, double-click the ```install_requirements.bat``` in the plugin directory, for Aki ComfyUI package double-click on the ```install_requirements_aki.bat``` in the plugin directory, and wait for the installation to complete.
+#### Windows Installation
 
-* Or install dependency packages, open the cmd window in the ComfyUI_LayerStyle plugin directory like 
-  ```ComfyUI\custom_nodes\ComfyUI_LayerStyle_Advance``` and enter the following command,
+* Double-click the ```install_requirements.bat``` in the plugin directory and wait for the installation to complete.
 
-&emsp;&emsp;for ComfyUI official portable package, type:
+* Or install dependency packages manually:
 
+1. Install special wheel files first:
 ```
-..\..\..\python_embeded\python.exe -s -m pip install .\whl\docopt-0.6.2-py2.py3-none-any.whl
-..\..\..\python_embeded\python.exe -s -m pip install .\whl\hydra_core-1.3.2-py3-none-any.whl
-..\..\..\python_embeded\python.exe -s -m pip install -r requirements.txt
-.\repair_dependency.bat
+pip install ./whl/docopt-0.6.2-py2.py3-none-any.whl
+pip install ./whl/hydra_core-1.3.2-py3-none-any.whl
 ```
 
-&emsp;&emsp;for Aki ComfyUI package, type:
+2. Uninstall potentially conflicting packages:
+```
+pip uninstall -y onnxruntime
+pip uninstall -y opencv-python opencv-contrib-python opencv-python-headless opencv-contrib-python-headless
+```
 
+3. Install requirements:
 ```
-..\..\python\python.exe -s -m pip install .\whl\docopt-0.6.2-py2.py3-none-any.whl
-..\..\python\python.exe -s -m pip install .\whl\hydra_core-1.3.2-py3-none-any.whl
-..\..\python\python.exe -s -m pip install -r requirements.txt
-.\repair_dependency.bat
+pip install -r requirements.txt
 ```
+
+#### Linux Installation
+
+* Use the provided Linux installation script:
+
+1. Make the script executable:
+```bash
+chmod +x install_requirements_linux.sh
+```
+
+2. Run the script:
+```bash
+./install_requirements_linux.sh
+```
+
+> **Note**: You may need to modify the Python path in the script (`PYTHON_EXEC="../../../venv/bin/python"`) to match your specific environment.
+
+* Or install dependencies manually following similar steps as Windows installation but using your Linux Python path.
+
+* For detailed Linux installation instructions, refer to the [Linux Installation Guide](instruction/linux_installation_guide.md).
 
 * Restart ComfyUI.
 
@@ -97,8 +115,6 @@ This error is caused by the low version of ```transformers``` package.
 
 This error is caused by the low version of ```protobuf``` package. 
 
-#### For the issues with the above three dependency packages, please double click ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to automatically fix them.
-
 ### onnxruntime::python::CreateExecutionProviderInstance CUDA_PATH is set but CUDA wasn't able to be loaded. Please install the correct version of CUDA and cuDNN as mentioned in the GPU requirements page
 
 Solution:
@@ -142,7 +158,7 @@ Please try downgrading the ```protobuf``` dependency package to 3.20.3, or set e
 
 ## Update
 
-**If the dependency package error after updating,  please double clicking ```repair_dependency.bat``` (for Official ComfyUI Protable) or  ```repair_dependency_aki.bat``` (for ComfyUI-aki-v1.x) in the plugin folder to reinstall the dependency packages.    
+**If the dependency package error after updating, please double click ```install_requirements.bat``` (Windows) or run ```./install_requirements_linux.sh``` (Linux) in the plugin folder to reinstall the dependency packages.    
 
 * Commit [SAM2UltraV2](SAM2UltraV2) and [LoadSAM2Model](LoadSAM2Model) nodes, Change the SAM model to an external input to save resources when using multiple nodes.
 * Commit [JoyCaptionBetaOne](JoyCaptionBetaOne), [LoadJoyCaptionBeta1Model](LoadJoyCaptionBeta1Model), [JoyCaptionBeta1ExtraOptions](JoyCaptionBeta1ExtraOptions) nodes, Generate prompt words using the JoyCaption Beta One model.    
@@ -369,9 +385,9 @@ Node Options:
 * include_character_age: Include information about the ages of any people/characters when applicable.
 * include_camera_shot_type: Mention whether the image depicts an extreme close-up, close-up, medium close-up, medium shot, cowboy shot, medium wide shot, wide shot, or extreme wide shot.
 * exclude_mood_feeling: Do not mention the mood/feeling/etc of the image.
-* include_camera_vantage_height: Explicitly specify the vantage height (eye-level, low-angle worm’s-eye, bird’s-eye, drone, rooftop, etc.).
+* include_camera_vantage_height: Explicitly specify the vantage height (eye-level, low-angle worm's-eye, bird's-eye, drone, rooftop, etc.).
 * mention_watermark: If there is a watermark, you must mention it.
-* avoid_meta_descriptive_phrases: Your response will be used by a text-to-image model, so avoid useless meta phrases like “This image shows…”, "You are looking at...", etc.
+* avoid_meta_descriptive_phrases: Your response will be used by a text-to-image model, so avoid useless meta phrases like "This image shows…", "You are looking at...", etc.
 * character_name: Person/Character Name, if choice ```refer_character_name```.
 
 
