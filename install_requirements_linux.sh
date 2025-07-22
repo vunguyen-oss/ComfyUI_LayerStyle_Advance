@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Path to Python in virtual environment
-PYTHON_EXEC="../../../venv/bin/python"
+PYTHON_EXEC="../../venv/bin/python"
 REQUIREMENTS_TXT="./requirements.txt"
 
 echo "Installing ComfyUI LayerStyle Advance dependencies"
